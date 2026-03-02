@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- Title -->
+  <title>Xolt Music — Online Music Player (Free API)</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://music.xolt.uz/" />
+
+  <!-- Basic SEO -->
+  <meta name="description"
+    content="Xolt Music is an online music player powered by a free API. Browse top tracks, search by name, and stream instantly with a fast modern player." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="keywords"
+    content="Xolt Music, online music player, music streaming, stream music, top tracks, search music, free api music, music api, online player" />
+
+  <!-- Favicons (put these in /public) -->
+  <link rel="icon" href="/logo.png" sizes="any" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Xolt Music" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Xolt Music" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Xolt Music — Online Music Player (Free API)" />
+  <meta property="og:description"
+    content="Online music player powered by a free API. Browse top tracks, search by name, and stream instantly with a fast modern player." />
+  <meta property="og:url" content="https://music.xolt.uz/" />
+  <meta property="og:image" content="https://music.xolt.uz/logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Xolt Music — Online Music Player (Free API)" />
+  <meta name="twitter:description"
+    content="Online music player powered by a free API. Browse top tracks, search by name, and stream instantly with a fast modern player." />
+  <meta name="twitter:image" content="https://music.xolt.uz/logo.png" />
+
+  <!-- JSON-LD (WebSite + SearchAction) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Xolt Music",
+    "url": "https://music.xolt.uz/",
+    "description": "Online music player powered by a free API. Browse top tracks, search by name, and stream instantly.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://music.xolt.uz/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

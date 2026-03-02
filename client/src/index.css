@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+
+.container {
+    max-width: 1444px;
+    margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+            rgba(120, 140, 160, 0.45),
+            rgba(80, 100, 120, 0.35));
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,
+            rgba(160, 190, 220, 0.65),
+            rgba(120, 150, 180, 0.55));
+    box-shadow: 0 0 10px rgba(120, 180, 255, 0.4);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+button {
+    cursor: pointer;
+}
+
+.loader {
+    --fill-color: #5590e9;
+    --shine-color: #5c3d9933;
+    transform: scale(0.5);
+    width: 100px;
+    height: auto;
+    position: relative;
+    filter: drop-shadow(0 0 10px var(--shine-color));
+}
+
+.loader #pegtopone {
+    position: absolute;
+    animation: flowe-one 1s linear infinite;
+}
+
+.loader #pegtoptwo {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0) translateY(-200px) translateX(-100px);
+    animation: flowe-two 1s linear infinite;
+    animation-delay: 0.3s;
+}
+
+.loader #pegtopthree {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0) translateY(-200px) translateX(100px);
+    animation: flowe-three 1s linear infinite;
+    animation-delay: 0.6s;
+}
+
+.loader svg g path:first-child {
+    fill: var(--fill-color);
+}
+
+@keyframes flowe-one {
+    0% {
+        transform: scale(0.5) translateY(-200px);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(0.75) translateY(-100px);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(0.5) translateY(50px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0) translateY(100px);
+        opacity: 0;
+    }
+}
+
+@keyframes flowe-two {
+    0% {
+        transform: scale(0.5) rotateZ(-10deg) translateY(-200px) translateX(-100px);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(1) rotateZ(-5deg) translateY(-100px) translateX(-50px);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1) rotateZ(0deg) translateY(0px) translateX(-25px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(0.5) rotateZ(5deg) translateY(50px) translateX(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0) rotateZ(10deg) translateY(100px) translateX(25px);
+        opacity: 0;
+    }
+}
+
+@keyframes flowe-three {
+    0% {
+        transform: scale(0.5) rotateZ(10deg) translateY(-200px) translateX(100px);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(1) rotateZ(5deg) translateY(-100px) translateX(50px);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1) rotateZ(0deg) translateY(0px) translateX(25px);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(0.5) rotateZ(-5deg) translateY(50px) translateX(0px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0) rotateZ(-10deg) translateY(100px) translateX(-25px);
+        opacity: 0;
+    }
+}
+
+
+.loader_2 {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 20px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l4 1s steps(4) infinite;
+}
+
+.loader_2:before {
+    content: attr(data-text)
+}
+
+@keyframes l4 {
+    to {
+        clip-path: inset(0 -1ch 0 0)
+    }
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
