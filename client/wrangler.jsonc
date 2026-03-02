@@ -2,7 +2,7 @@
     "name": "xoltmusics",
     "compatibility_date": "2026-03-02",
     "assets": {
-        "directory": "./client/dist",
+        "directory": "./dist",
         "not_found_handling": "single-page-application",
         "html_handling": "none"
     }
