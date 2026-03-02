@@ -6,7 +6,7 @@ import { LanguageProvider } from './hooks/UseLanguage.jsx'
 import { MusicProvider } from './context/MusicContext.jsx'
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("../public/sw.js");
+    navigator.serviceWorker.register("/public/sw.js");
   });
 }
 createRoot(document.getElementById('root')).render(
