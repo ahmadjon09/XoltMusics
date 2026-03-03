@@ -10,7 +10,7 @@ import UserRoutes from "./routes/user.route.js";
 import TopRoutes from "./routes/top.route.js";
 import langMiddleware from "./middlewares/lang.js";
 import { t } from "./utils/t.js";
-import { searchTracks, getTopHits } from "./services/scraper.js"; // getTopHits export bo‘lishi kerak
+import { searchTracks } from "./services/scraper.js";
 import mongoose from "mongoose";
 import { startTopMonthlyJob } from "./schedulers/topMonthlyJob.js";
 
@@ -24,7 +24,6 @@ const PORT = process.env.PORT || 5000;
 const HOST = "0.0.0.0";
 
 const app = express();
-const api = express.Router();
 
 // ---------- Helpers ----------
 const getLocalIP = () => {
@@ -37,14 +36,15 @@ const getLocalIP = () => {
   return "127.0.0.1";
 };
 
-const wrap = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+const wrap = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 // ---------- Middlewares ----------
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
-// ---------- Health / status ----------
-app.get("/api/v1/status", (_req, res) => {
+// ---------- Health ----------
+app.get("/v1/status", (_req, res) => {
   res.json({
     status: "working",
     port: PORT,
@@ -52,27 +52,26 @@ app.get("/api/v1/status", (_req, res) => {
   });
 });
 
-app.get("/api/v1", (_req, res) => res.send("Server is running!"));
+app.get(`/${VERSION}`, (_req, res) =>
+  res.send("Server is running!")
+);
+
+// ---------- Language middleware ----------
+app.use("/:lang", langMiddleware);
 
 // ---------- Routes ----------
-// hamma API: /api/:lang/:version/...
-api.use("/:lang", langMiddleware);
+app.use(`/:lang/${VERSION}/user`, UserRoutes);
+app.use(`/:lang/${VERSION}/top`, TopRoutes);
 
-api.use(`/:lang/${VERSION}/user`, UserRoutes);
-api.use(`/:lang/${VERSION}/top`, TopRoutes);
-
-api.get(`/:lang/${VERSION}/search`, wrap(async (req, res) => {
+app.get(`/:lang/${VERSION}/search`, wrap(async (req, res) => {
   let q = String(req.query.q ?? "").trim();
   if (!q) return res.json([]);
-
 
   q = q.normalize("NFKC");
 
   const tracks = await searchTracks(q);
   res.json(tracks);
 }));
-
-app.use("/api", api);
 
 // ---------- 404 ----------
 app.use((req, res) => {
@@ -87,16 +86,16 @@ app.use((err, req, res, _next) => {
   res.status(500).json({ message: t(lang, "SERVER_ERROR") || "Server error" });
 });
 
-// ---------- Keep alive (Render) ----------
+// ---------- Keep alive ----------
 const keepServerAlive = () => {
-  const base = process.env.RENDER_URL; // masalan: https://your-app.onrender.com
+  const base = process.env.RENDER_URL;
   if (!base) return;
 
   const pingInterval = 10 * 60 * 1000;
 
   const ping = async () => {
     try {
-      await axios.get(`${base}/api/v1/status`, { timeout: 8000 });
+      await axios.get(`${base}/v1/status`, { timeout: 8000 });
       console.log("🔄 Server active");
     } catch {
       console.log("⚠️ Ping failed");
@@ -110,16 +109,17 @@ const keepServerAlive = () => {
 // ---------- Start ----------
 const startApp = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL)
-    console.log('✅ MongoDB connected')
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("✅ MongoDB connected");
+
     startTopMonthlyJob();
 
     app.listen(PORT, HOST, () => {
       const ip = getLocalIP();
       console.log("================================");
       console.log("🚀 Server ishga tushdi");
-      console.log(`🌐 Localhost: http://localhost:${PORT}/api/v1`);
-      console.log(`📱 IP orqali: http://${ip}:${PORT}/api/v1`);
+      console.log(`🌐 Localhost: http://localhost:${PORT}/${VERSION}`);
+      console.log(`📱 IP orqali: http://${ip}:${PORT}/${VERSION}`);
       console.log("================================");
     });
 
