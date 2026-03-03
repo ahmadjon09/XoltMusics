@@ -12,9 +12,7 @@ if ("serviceWorker" in navigator) {
 createRoot(document.getElementById('root')).render(
   <ContextProvider>
     <LanguageProvider>
-      <MusicProvider>
-        <App />
-      </MusicProvider>
+      <App />
     </LanguageProvider>
   </ContextProvider>
 )

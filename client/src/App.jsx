@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 import { Root } from './layout/Root'
 import { Loading } from './components/Loading'
-import { Home } from './pages/Home'
+import { AudiusPlayer } from './pages/Home'
 import Fetch from './hooks/fetcher'
 import { ContextData } from './context/Context'
 import { ErrorPage } from './pages/Error'
@@ -20,18 +20,18 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true)
 
   const token = Cookies.get('user_token')
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e) => {
-  //     e.preventDefault();
-  //     e.returnValue = "";
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
 
   useEffect(() => {
@@ -68,7 +68,10 @@ export default function App() {
   if (isLoading) return <Loading />
 
   const routes = [
-    { index: true, element: <Home /> },
+    { index: true, element: <AudiusPlayer /> },
+    { path: '/artist/:artistHandle', element: <AudiusPlayer /> },
+    { path: '/track/:trackId', element: <AudiusPlayer /> },
+
     { path: 'top-tracks', element: <TopTracks /> },
     { path: 'search', element: <SearchPage /> },
     { path: 'login', element: <Login /> },

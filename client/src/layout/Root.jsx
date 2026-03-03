@@ -1,14 +1,9 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
-import { useMusic } from "../context/MusicContext";
-import { MusicPlayer } from "../components/MusicPlayer";
+
 import { InstallPrompt } from "../components/InstallPrompt";
 
-const MusicPlayerWrapper = () => {
-    const { currentTrack } = useMusic();
-    if (!currentTrack) return null;
-    return <MusicPlayer />;
-};
+
 
 const LayoutInner = () => {
     const { pathname } = useLocation();
@@ -19,10 +14,9 @@ const LayoutInner = () => {
 
     return (
         <main className="text-gray-700">
-            {!hideLayout && <Navbar />}
+            {/* {!hideLayout && <Navbar />} */}
             <Outlet />
             <InstallPrompt />
-            {!hideLayout && <MusicPlayerWrapper />}
         </main>
     );
 };
